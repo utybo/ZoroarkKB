@@ -4,7 +4,7 @@ articleid: pMTP11
 # Can be: maths, archi, prog, algo, elec, phys, en (for english)
 category: prog
 # The title
-title: Understanding TP11: A freshman's guide for other freshmen
+title: "Understanding TP11: A freshman's guide for other freshmen"
 # The author(s)
 authors:
   - Mehdi 'Arcanite' Oueslati
