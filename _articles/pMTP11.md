@@ -23,3 +23,12 @@ links:
     description:
       Powered by PHP
 ---
+
+The purpose of this document is to help those in need of extra explanations
+for TP11. The explanations provided may sometimes be vulgarization, the goal
+being mainly that you understand the basics of networking, multi-threading and
+lambda-calculus (don’t be afraid, we won’t do maths here).
+
+*(The text above was taken from the introduction)*
+
+License: Beerware, more details in the PDF.

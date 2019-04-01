@@ -31,3 +31,5 @@ links:
 ### Hello!
 
 The Quick Sheet is NOT intended for cheating, so don't use it for cheating (it's really that simple, trust me!)
+
+License: All rights reserved (for now)
