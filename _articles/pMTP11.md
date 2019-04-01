@@ -15,7 +15,7 @@ files:
     # This is the url field that should be uncommented if needed.
     #url: https://example.com/example.pdf
     description:
-      The quick sheet itself
+      The guide for TP11
 # The links, obvious enough
 links:
   - name: Mehdi's website
