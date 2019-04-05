@@ -13,13 +13,16 @@ links:
     url: https://zoroark.guru
     description:
       My personal website
+excerpt:
+  A guide on how to get started to make unit-tests with Python for algo homework
+  at EPITA or for any other project.
 ---
 {% capture article_resource_path %}{{ site.baseurl }}/content/{{ page.articleid }}/{% endcapture %}
+
 *(c) 2019 Matthieu Stombellini. All rights reserved.*
 
 **This tutorial is in "BETA" mode, please shoot me an email if notice anything
 wrong with it! You know where to reach me ;)**
-
 
 ## Test your Python code with pytest
 
@@ -30,13 +33,16 @@ your code.
 
 ### Before we start
 
+#### EPITA stuff
+
 One thing to note: **the format used for your submission file is dumb.** Because
 it has a dot in it, it is impossible to import it like any other module in
 Python using the good old `from <module> import <stuff>`. Moreover, the dynamic
-import you'd use would make it impossible to use autocomplete in your IDE. I
-recommend that you keep the basic name of `login_<homework>.py` as it is given
-to you and only modify it when you are ready to submit. That way, you can import
-everything in your test file as just `from login_<homework> import *`.
+import recommended on Nathalie Bouquet's website would make it impossible to use
+autocomplete in your IDE. I recommend that you keep the basic name of
+`login_<homework>.py` as given to you and only modify it when you are ready to
+submit. That way, you can import everything in your test file as just `from
+login_<homework> import *`.
 
 Another thing to remember is that **YOU MUST NEVER SUBMIT TESTS.** Keep your
 tests in a separate file!
@@ -44,38 +50,46 @@ tests in a separate file!
 It might sound dumb, but make sure you install Python! We will need to install a
 few things through `pip`, which is Python's package manager.
 
-<b class="mdl-color-text--red-900">SHARING UNIT TESTS WITH FELLOW STUDENTS MAY
+SHARING UNIT TESTS WITH FELLOW STUDENTS MAY
 CONSIDERED TO BE CHEATING AND IS SEVERELY PUNISHED AT EPITA. DO NOT SHARE YOUR
 TESTS WITH YOUR FRIENDS, AS THAT COULD EARN YOU A MAGNIFISCENT CHEATING FLAG
-(the famous Flag Triche).</b>
+(the famous Flag Triche).
+{: .mdl-typography--font-bold .mdl-color-text--red-900}
 
 #### PyCharm tips
 
 <img alt="The PyCharm logo" src="{{article_resource_path}}/logo.png"
   style="width: 25%;max-width: 64px"/>
 
-Final thing, I highly recommend that you use a full IDE for this. If you enjoy
-using Rider, consider using [PyCharm](https://jetbrains.com/pycharm) (the free
-Community edition is fine, but you also have access to the Professional version
-with your EPITA email address). This guide assumes that you are using PyCharm,
-but most of what is written here can be done with anything.
+I *highly* recommend that you use a full IDE for this. If you enjoy using Rider,
+consider using [PyCharm](https://jetbrains.com/pycharm) from JetBrains, who are
+the guys behind Rider. The free Community edition is fine, but you also have
+access to the Professional version with your EPITA email address[^1].
+This guide assumes that you are using PyCharm, but most of what is written here
+can be done with anything.
 
-Also, here is a small tip if you are using PyCharm (or Rider for that matter),
-you can "search anything" (files, actions, settings) by simply double pressing
-the right shift key, and using the window that appears. It also shows the
-various shortcuts associated with each action, which is great for learning how
-to use JetBrains IDEs very efficiently.
+[^1]:
+    One particularly convenient feature of the paid version of PyCharm is code
+    coverage right inside the IDE, but you can use coverage tools without that.
+
+Here is a tip that applies to both PyCharm and Rider (and also to any IDE from
+JetBrains): you can "search anything" by simply double pressing the shift key
+(right or left), and using the window that appears to type in what you want to
+search: files, actions, settings... It also shows the various shortcuts
+associated with each action, which is great for learning how to use JetBrains
+IDEs very efficiently.
 
 When launching PyCharm, open it directly at the root directory of your homework
 (the one in which the `login_homework.py` file is), and point it to the
 interpreter you have on your system if it asks that question.
 
-If PyCharm complains with PEP warnings, know that this means that your code does
-not comply with the general Python coding style. Respecting the coding style is
-essential for a language like Python which is based on indentation and not curly
-brackets.
+If PyCharm complains with PEP8 warnings, know that this means that your code
+does not comply with the general Python coding style. Respecting the coding
+style is essential for a language like Python which is based on indentation and
+not curly brackets. You can find out more about PEP8
+[here](https://www.python.org/dev/peps/pep-0008/).
 
-Two essential keyboard sohrtcuts to know (other than the double right shift):
+Two other essential keyboard shortcuts to know:
 
 * Alt+Enter: When you are on an error or a warning, opens a small popup where
   you can select what you want to do to fix the problem
@@ -84,9 +98,8 @@ Two essential keyboard sohrtcuts to know (other than the double right shift):
 
 #### Why use Unit Tests?
 
-Or, more broadly, why use unit testing at all? There are a few very good reasons
-for it. For those who do not know, a "unit test" is a small test that usually
-only tests a single function.
+There are a few very good reasons for using unit tests. For those who do not
+know, a "unit test" is a small test that usually only tests a single function.
 
 * It makes sure that your code works, which is nice
 * It ensures that no regressions happen in your code. A regression is when
@@ -104,41 +117,60 @@ only tests a single function.
 
 A unit test must be:
 
-* Small: a true unit test must only test one function at most
+* Small: a true unit test must only test one unit of code at most[^2]. A unit
+  of code can be
+  * A specific use-case
+  * Corresponding to an if-branch (or any other specific case that you
+    treat differently)
+  * A specific edge-case that your code *should* handle.
 * Repeatable: it can be ran multiple times.
 * Stateless: it must be able to run no matter what the configurations are
 * File-less: using unit tests to check file-related manipulations is an
   extremely bad idea.
 * Network-less: same as above but for network-related interactions
 
+[^2]:
+    This is the best case scenario: you can of course put multiple
+    test cases in the same unit test for peak SUP laziness. Don't worry,
+    I've been there too ;)
+
+You must think of your unit-tests not as specific tests of what your code *does*
+but of what your code *should do*. Do note that there are also multiple valid
+return values for certain functions: you will have to have more complex
+assertions than just simple equality tests (`result == expectation`) in these
+cases.
+
 [Inspired some of the points mentioned here.](https://www.artima.com/weblogs/viewpost.jsp?thread=126923)
 
 #### Why pytest specifically?
 
 Algo homeworks generally do not require huge amounts of testing or complex
-interactions between tests. `pytest` is extremely simple and does not require
-any sort of configuration in order to be used, which is perfect for students who
-love to destroy their configuration. `pytest` can also be extended with plugins,
+interactions between tests. `pytest` is extremely simple and
+straight-to-the-point, and does not require any sort of configuration in order
+to be used, which is perfect for us. `pytest` can also be extended with plugins,
 so, if something is missing in the basic `pytest`, a plugin probably exists.
+
+Another *massive* advantage of `pytest` is that it only uses thing you already
+know apart, except for the `assert` keyword which will be explained later on.
 
 ### Step 0: Installation
 
 Install [Python](https://python.org) if you have not done so already. For this
 guide, you will need to install `pytest` through `pip`, Python's package
-manager.
+manager. Use the following in your favorite terminal, console or whatever:
 
 ```sh
 pip install pytest
 ```
 
 Run this and you should be good to go. You might need to use `sudo` to install
-everything, I am not entirely sure.
+everything on UNIX systems (Linux, Mac OS X), but I am not entirely sure.
 
 ***Why not use a requirements.txt?***
 *If you are asking this question, (and know how to deal with this kind of issue)
 feel free to use a `requirements.txt` file and configure PyCharm accordingly.
 I just felt like it was not necessary for this specific
-guide, and `pytest` and `coverage` are good to have for any python file in my
+guide, and `pytest` is good to have for any python file in my
 opinion. This is a guide for beginners for whom `requirements.txt` shenanigans
 are not really important.*
 
@@ -186,12 +218,20 @@ condition is true, so make sure that it indeed is". This is basically the entire
 point of unit tests, and `pytest` smartly extracts information from the
 resulting assert error to show exactly *what* went wrong.
 
-Each test function will show up as a separate test. **You should NOT put
-multiple assert statements like in this example.** You can see that each assert
-statement corresponds to a separate test of the `add` function. Each test should be a separate
+Each function will show up as a separate test. **You should NOT put multiple
+assert statements like in this example.** Unless you're lazy (like me). You can
+see that each assert statement corresponds to a separate test of the `add`
+function. And no, you do not have to be as thorough as I was there, but you
+really should, because that's the whole point of unit-testing.
 
-And no, you do not have to be as thorough as I was there, but you really should,
-because that's the whole point of unit-testing.
+You may notice that, although we have no information on how the function was
+implemented, we can still create a lot of test cases, including trickier
+patterns like adding two negative numbers, mixing and matching negative and
+positive numbers, or even cases where we should get 0. If you are ever lost
+while writing test-cases, always think about *what could be some nasty case that
+I wouldn't want to have to deal with*. Talk with fellow students about which
+cases they think are complicated, write tests for these cases, and check if your
+code is able to handle these test cases properly. Get creative!
 
 #### Step 1.1: Using examples as unit tests
 
@@ -211,11 +251,16 @@ def test_amazing_function():
 ```
 
 It is a good idea to separate the function call from the comparison to the
-expected result.
+expected result. This way, if your code fails miserably with an exception, you
+*know* that it is caused by the function and not weird `==` issues. This will
+also help you isolate cases where something was `None` somewhere. Failed on the
+`assert`? The result was `None`. Failed on the function call? Something went
+wrong inside your code.
 
 ### Step 2: It's time to test!
 
-You have a few options here.
+You have a few options here, but it mostly comes down to whether you are using
+PyCharm or not.
 
 #### Step 2A: Using PyCharm
 
@@ -260,9 +305,13 @@ crash the entire testing sequence immediately and you will only get an error
 message. A malformed function file (the one you will submit) will also crash the
 testing sequence immediately.
 
+A few tips: right-clicking on a test allows you to relaunch it separately, and
+you have a button on the left of the tests panel to relaunch only failed tests.
+
 #### Step 2B: Using any shell
 
-I am using PowerShell in the following example, but you can use anything. Running `pytest` is done with the following command:
+I am using PowerShell in the following example, but you can use anything.
+Running `pytest` is done with the following command:
 
 ```sh
 pytest test_myfile.py
@@ -273,17 +322,43 @@ pytest test_myfile.py
 The results are fairly similar to what can be seen in PyCharm, so I am just
 leaving the screenshots as examples.
 
-You can also just run the following command, and `pytest` will figure out where the tests are on its own:
+You can also just run the following command, and `pytest` will figure out where
+the tests are on its own:
 
 ```sh
 pytest
 ```
 
 ... yup, that was pretty simple to type. And now that I have recovered my
-missing braincells, `pytest` shows us that, indeed, the unit tests work!
+missing braincells and fixed my function, `pytest` shows us that, indeed, the
+unit tests work, hurray!
 
 ![Screenshot of failing tests result]({{article_resource_path}}/sc_consrun.png)
 
 ### Done!
 
 Congrats! You now know how to write unit tests for your homework project.
+
+Need more out of your unit tests? I suggest you create very long ones which
+would be used to benchmark your algorithm. Use them in conjunction with `cProfile`
+to get detailed profiling results to determine which functions get the most
+calls. If enough people are interested, I might make a more detailed tutorial,
+but it all boils down to these few lines:
+
+```python
+# at the beginning of the file
+import cProfile
+
+# in one of your benchmarking unit tests
+    prof = cProfile.Profile()
+    prof.enable()
+    # the code you want to profile
+    prof.disable()
+    prof.print_stats("calls")
+```
+
+You will get a very detailed output with the number of calls for every function
+used between the `enable` and `disable` calls, as well as the time spent in each
+function.
+
+### Footnotes
