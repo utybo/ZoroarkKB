@@ -21,7 +21,7 @@ excerpt:
 
 *(c) 2019 Matthieu Stombellini. All rights reserved.*
 
-**This tutorial is in "BETA" mode, please shoot me an email if notice anything
+**This tutorial is in "BETA" mode, please shoot me an email if you notice anything
 wrong with it! You know where to reach me ;)**
 
 ## Test your Python code with pytest
@@ -103,13 +103,16 @@ know, a "unit test" is a small test that usually only tests a single function.
 
 * It makes sure that your code works, which is nice
 * It ensures that no regressions happen in your code. A regression is when
-  something that works breaks inexplicably. This is invaluable when you want to
-  efficiently check when and if your code breaks after you've made some
-  optimizations.
-* It gives you a direct approximation of how much has been done
+  something that works now breaks (or has broken) inexplicably at some point in
+  the future. This is invaluable when you want to efficiently check when and if
+  your code breaks after you've made some optimizations.
+* It gives you a direct approximation of how much has been done on your task.
+  Writing your tests before writing your code can be an efficient way of making
+  reliable code.
 * Creating unit tests before even starting to code your function gives you a
   better understanding of what said function is supposed to do.
-* Click a button, test everything. It's that simple. Automate all the things!
+* Click a button, test everything at once. It's that simple. Automate all the
+  things!
 * If you have ever made something that looks like `def test_my_function()`,
   congrats, you already know how to make unit tests!
 
@@ -124,7 +127,7 @@ A unit test must be:
     treat differently)
   * A specific edge-case that your code *should* handle.
 * Repeatable: it can be ran multiple times.
-* Stateless: it must be able to run no matter what the configurations are
+* Stateless: it must be able to run no matter what the configurations are[^3]
 * File-less: using unit tests to check file-related manipulations is an
   extremely bad idea.
 * Network-less: same as above but for network-related interactions
@@ -133,6 +136,10 @@ A unit test must be:
     This is the best case scenario: you can of course put multiple
     test cases in the same unit test for peak SUP laziness. Don't worry,
     I've been there too ;)
+
+[^3]: 
+    That's not what "stateless" *really* means but that's all you need to
+    remember for now: unit tests are isolated from one another.
 
 You must think of your unit-tests not as specific tests of what your code *does*
 but of what your code *should do*. Do note that there are also multiple valid
@@ -218,11 +225,10 @@ condition is true, so make sure that it indeed is". This is basically the entire
 point of unit tests, and `pytest` smartly extracts information from the
 resulting assert error to show exactly *what* went wrong.
 
-Each function will show up as a separate test. **You should NOT put multiple
-assert statements like in this example.** Unless you're lazy (like me). You can
-see that each assert statement corresponds to a separate test of the `add`
-function. And no, you do not have to be as thorough as I was there, but you
-really should, because that's the whole point of unit-testing.
+Each function will show up as a separate test. You can see that each assert
+statement corresponds to a separate test of the `add` function. And no, you do
+not have to be as thorough as I was there, but you really should, because that's
+the whole point of unit-testing.
 
 You may notice that, although we have no information on how the function was
 implemented, we can still create a lot of test cases, including trickier
@@ -235,7 +241,8 @@ code is able to handle these test cases properly. Get creative!
 
 #### Step 1.1: Using examples as unit tests
 
-The subject will often feature examples of the result a function should give. Say you have the following in your subject:
+The subject will often feature examples of the result a function should give.
+Say you have the following in your subject:
 
 ```python
 >>> my_amazing_function("Abcde", 123, BinTree("all your bintrees are belong to us", None, None))
@@ -251,11 +258,12 @@ def test_amazing_function():
 ```
 
 It is a good idea to separate the function call from the comparison to the
-expected result. This way, if your code fails miserably with an exception, you
-*know* that it is caused by the function and not weird `==` issues. This will
-also help you isolate cases where something was `None` somewhere. Failed on the
-`assert`? The result was `None`. Failed on the function call? Something went
-wrong inside your code.
+expected result. This way, if your code fails miserably with an exception (that
+is, it actually fully crashes because of the function you're testing instead of
+just failing the assertion), you *know* that it is caused by the function and
+not weird `==` issues. This will also help you isolate cases where something was
+`None` somewhere. Failed on the `assert`? The result was `None`. Failed on the
+function call? Something went wrong inside your code.
 
 ### Step 2: It's time to test!
 
@@ -302,8 +310,8 @@ in the assert statement. `pytest` even presses F for you, how nice!
 If the assert did not fail but an exception happened, `pytest` will also give
 you full insight on which function failed. Of course, a malformed test file will
 crash the entire testing sequence immediately and you will only get an error
-message. A malformed function file (the one you will submit) will also crash the
-testing sequence immediately.
+message. If the original file you are testing has a syntax error somewhere
+inside of it, that will also crash the testing sequence immediately.
 
 A few tips: right-clicking on a test allows you to relaunch it separately, and
 you have a button on the left of the tests panel to relaunch only failed tests.
