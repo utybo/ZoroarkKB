@@ -1,7 +1,7 @@
 ---
 # Same as the file's name (without the md)
 articleid: mS2QS
-# Can be: maths, archi, prog, algo, elec, phys, en (for english)
+# Can be: maths, archi, prog, algo, elec, phys, en (for english), general
 category: maths
 # The title
 title: Maths Quick Sheet (SUP)
@@ -30,6 +30,7 @@ links:
 -->
 ### Hello!
 
-The Quick Sheet is NOT intended for cheating, so don't use it for cheating (it's really that simple, trust me!)
+The Quick Sheet is NOT intended for cheating, so don't use it for cheating (it's
+really that simple, trust me!)
 
 License: All rights reserved (for now)
