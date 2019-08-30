@@ -16,10 +16,9 @@ links:
 excerpt:
   A guide on how to get started to make unit-tests with Python for algo homework
   at EPITA or for any other project.
+license: © 2019 Matthieu Stombellini, tous droits réservés, all rights reserved
 ---
 {% capture article_resource_path %}{{ site.baseurl }}/content/{{ page.articleid }}/{% endcapture %}
-
-*(c) 2019 Matthieu Stombellini. All rights reserved.*
 
 **This tutorial is in "BETA" mode, please shoot me an email if you notice anything
 wrong with it! You know where to reach me ;)**

@@ -22,6 +22,11 @@ links:
     url: https://zoroark.guru
     description:
       My personal website!
+# Specify the license here
+license: © 2019 Matthieu Stombellini, tous droits réservés, all rights reserved
+# This is the short text that will appear on Google, Discord previews, etc ...
+# Not usually useful, uncomment if you want to use it.
+#excerpt: This is the excerpt
 ---
 
 <!-- Try to start at ### and not just #
@@ -32,5 +37,3 @@ links:
 
 The Quick Sheet is NOT intended for cheating, so don't use it for cheating (it's
 really that simple, trust me!)
-
-License: All rights reserved (for now)

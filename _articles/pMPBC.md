@@ -1,22 +1,12 @@
 ---
-# Same as the file's name (without the md)
 articleid: pMBPC
-# Can be: maths, archi, prog, algo, elec, phys, en (for english)
 category: prog
-# The title
 title: "Basic Programming concepts"
-# The author(s)
 authors:
   - Mehdi 'Arcanite' Oueslati
-# The files. Add a url field if it is hosted externally
-# You can have multiple files
 files:
   - name: programming_course.pdf
-    # This is the url field that should be uncommented if needed.
-    #url: https://example.com/example.pdf
     description: The guide itself
-
-# The links, obvious enough
 links:
   - name: Mehdi's website
     url: http://www.mehdioueslati.com/

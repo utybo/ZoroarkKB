@@ -9,8 +9,8 @@ links:
     url: https://epita.it
     description:
       Tons of useful links you should definitely check out
+license: © 2019 Matthieu Stombellini, tous droits réservés, all rights reserved
 ---
-
 
 ### Getting started at EPITA
 
@@ -66,7 +66,7 @@ There are two campuses in Paris for EPITA:
 
 You need your student card to enter the campuses.
 
-#### Credentials
+#### Logins & passwords
 
 At EPITA, students are identified by their "login", which is just
 `firstname.lastname`. This has been in place since the 2021 promo: before then,
@@ -83,9 +83,10 @@ There are two credentials system used at EPITA:
   EPITA), this is what you use to log in to your email account and Office 365.
   You should receive the password via a text message before the first day. This
   is what you use to connect to all Microsoft login pages.
-* CRI: Managed by the CRI, this is what you use to log in to the CRI's Intranet,
-  and to the Programming intranets. You will define this password yourself: an
-  e-mail will give you the exact procedure.
+* CRI: Managed by the CRI, this is what you use to log in to the school's
+  computers, to the CRI's Intranet, and to the Programming intranets. You will
+  define this password yourself: an e-mail will give you the exact procedure.
+
 
 #### Discord Servers
 
@@ -108,6 +109,23 @@ To access them, use the following links:
 
 Other servers also exist, but will not be listed here as they are more for
 student clubs.
+
+#### School computers
+
+The computers at EPITA run on Arch Linux. At boot time, you get a choice between
+various sessions. Choose EPITA SUP if you need tools for working with C#, or
+EPITA otherwise.
+
+Your username is your login. Your password is the CRI password.
+
+**IMPORTANT:** THE COMPUTERS DO NOT HAVE HARD DRIVES, ONLY RAM. ANYTHING THAT IS
+OUTSIDE OF YOUR `AFS` FOLDER WILL BE DELETED PERMANENTLY WHEN THE COMPUTER GETS
+SHUT DOWN. ***ALWAYS*** STORE EVERYTHING ON YOUR AFS.
+
+I have a small list of tips and tricks over [here](https://zoroark.guru/pie/),
+including how to fix the AFS, how to set a background, etc.
+
+More details about the AFS available [on the CRI's documentation website](https://doc.cri.epita.fr/afs/).
 
 #### Software
 
@@ -155,7 +173,7 @@ check out [epita.it](https://epita.it).**
 ##### General
 
 * [**Chronos**](http://chronos.epita.net/): This is where you are able to check
-  your timetables. Use the search box in the top left corner to enter you class
+  your timetables. Use the search box in the top left corner to enter your class
   name (for example, `S1B2`)
 * [**IonisX**](https://ionisx.com/): This is where you can find the MiMos, which
   replace lectures at EPITA.
@@ -199,17 +217,22 @@ These websites are only useful for Prépa students (first to fourth semester)
 
 #### Community resources
 
-EPITA's students also create their own resources. Here is a list of the
+EPITA's students also create their own resources. As these are not official,
+they may be less reliable than official sources. Here is a list of the
 essentials:
 
+* [**epita.it**](https://epita.it): A portal of useful links from which you can
+  access everything you need at EPITA. If you need to remember one address,
+  remember this one.
 * [**iChronos**](https://ichronos.net/): A better interface for Chronos. You
   should provide your *whole* class ID, which you can find in Chronos by looking
   at the left side bar once you are seeing your group's timetable.
-* [**Epinnal**](https://github.com/Epinnal): Open source repository of past
-  subjects for Prépa students. *M a n y* other repositories of past subjects
-  exist.
+* [**Epidocs Past Exams**](https://past-exams.epidocs.eu/): Open source
+  repository of past subjects for Prépa students, from the [Epidocs](https://epidocs.eu)
+  collection of projects. *M a n y* other repositories of past subjects exist,
+  but this is the cleanest and most complete one yet. Feel free to [participate](https://github.com/Epidocs/Past-Exams)!
 * [**Epimap**](http://map.epita.eu/): A map of Villejuif and Kremlin-Bicêtre
-  campuses.
+  campuses. Useful if you get lost.
 * [**Epiquote**](https://epiquote.fr): The most Epic Quotes™ seen at EPITA.
 
 Shameless plug: I also maintain a documentation website with a few useful

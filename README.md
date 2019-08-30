@@ -1,9 +1,12 @@
-# Zoroark Knowledge Base (or KBZ for short)
+# kb.zoroark.guru Knowledge Base (or KB for short)
 
 This is the repository used on [kb.zoroark.guru](https://kb.zoroark.guru) to
-provide information on everything.
+provide information on everything EPITA, although it can contain information
+which others find interesting too.
 
 ALL FILES IN THIS REPOSITORY ARE THEIR OWNERS'. THE LICENSES DEPEND ON THE FILE.
+OPINIONS PRESENT HERE ARE THEIR OWNERS'. EXTERNAL RESOURCES ARE USED EITHER WITH
+PERMISSION FROM THE AUTHOR OR WITHIN THE RIGHTS GRANTED BY THEIR LICENSE.
 
 ## Guidelines for contribution
 
@@ -23,7 +26,8 @@ Files that need to be excluded from the website should start with an underscore
 
 To add files: simply fork this repository, make the changes on your fork, and
 create a pull request. All files are accepted as long as the authors are clearly
-defined, and that they do not break anyone's copyright.
+defined, are at least a little bit relevant to EPITA or to subjects taught at
+EPITA and that they do not break anyone's copyright.
 
 **If your submission is only a PDF file,** and you don't want to spend time
 creating the article yourself, open an issue and we will add them ourselves.
