@@ -19,3 +19,5 @@ Notice anything wrong with the quick sheet? Feel free to DM me somewhere, I lurk
 on the EPITA 2023 server all the time!
 
 Download link is above.
+
+Updated 2019-09-03
