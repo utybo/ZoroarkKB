@@ -112,18 +112,21 @@ student clubs.
 
 #### School computers
 
-The computers at EPITA run on Arch Linux. At boot time, you get a choice between
-various sessions. Choose EPITA SUP if you need tools for working with C#, or
-EPITA otherwise.
+The computers at EPITA run on Arch Linux, with i3 as the desktop environment.
+XFCE is also available but will not be covered in class. At boot time, you get a
+choice between various sessions. Choose EPITA SUP if you need tools for working
+with C# and OCaml, or EPITA otherwise.
 
 Your username is your login. Your password is the CRI password.
 
-**IMPORTANT:** THE COMPUTERS DO NOT HAVE HARD DRIVES, ONLY RAM. ANYTHING THAT IS
-OUTSIDE OF YOUR `AFS` FOLDER WILL BE DELETED PERMANENTLY WHEN THE COMPUTER GETS
-SHUT DOWN. ***ALWAYS*** STORE EVERYTHING ON YOUR AFS.
+**IMPORTANT:** THE COMPUTERS DO NOT HAVE HARD DRIVES[^1], ONLY RAM. ANYTHING
+THAT IS OUTSIDE OF YOUR `AFS` FOLDER WILL BE DELETED PERMANENTLY WHEN THE
+COMPUTER GETS SHUT DOWN. ***ALWAYS*** STORE EVERYTHING ON YOUR AFS.
 
-I have a small list of tips and tricks over [here](https://zoroark.guru/pie/),
-including how to fix the AFS, how to set a background, etc.
+[^1]:
+    Some computers actually do have a hard drive, but it is only used for 
+    caching the Linux distribution (so you don't have to re-download it 
+    everytime you turn the computer on) and running Windows.
 
 More details about the AFS available [on the CRI's documentation website](https://doc.cri.epita.fr/afs/).
 
@@ -149,13 +152,21 @@ The following programming languages are taught at EPITA (accurate as of 2019):
 * In SPE: C, Rust (S4VJ only), Python (only in Algorithmics classes)
 * In ING1: C, C++, Python, Java, maybe others
 
+The languages learnt in ING2/ING3 depend on your Majeure.
+
 #### Git
 
 Since the 2023 promo, Git is used in SUP, SPE, and ING1. It is software that
 basically allows you to manage your code in a nice, organized way. It is sort of
 like iCloud, Mega or Google Drive, but instead of sending every file change you
 make, you manage "packets of changes" (called commits). This way of managing
-code leads to many benefits.
+code leads to many benefits, and there are lots of great ways to use this 
+system. While you only need to know three of four commands for submitting your
+work at EPITA, you should definitely spend some time learning Git. If you are
+allergic to the command line, there are also very good graphical apps out there,
+like [Fork](https://git-fork.com/) (my personal favorite) or 
+[GitKraken](https://www.gitkraken.com/git-client) (also very good but requires a
+paid subscription for private repositories).
 
 [Here is a simple introduction to Git for more information](https://rogerdudler.github.io/git-guide/).
 Also available in [French](https://rogerdudler.github.io/git-guide/index.fr.html).
@@ -237,3 +248,5 @@ essentials:
 
 Shameless plug: I also maintain a documentation website with a few useful
 resources and articles (you're reading one of the articles right now!): [kb.zoroark.guru](https://kb.zoroark.guru)
+
+#### Footnotes
