@@ -9,10 +9,6 @@ links:
     url: https://pytest.org
     description:
       The official pytest website
-  - name: zoroark.guru
-    url: https://zoroark.guru
-    description:
-      My personal website
 excerpt:
   A guide on how to get started to make unit-tests with Python for algo homework
   at EPITA or for any other project.
@@ -34,14 +30,14 @@ your code.
 
 #### EPITA stuff
 
-One thing to note: **the format used for your submission file is dumb.** Because
-it has a dot in it, it is impossible to import it like any other module in
-Python using the good old `from <module> import <stuff>`. Moreover, the dynamic
-import recommended on Nathalie Bouquet's website would make it impossible to use
-autocomplete in your IDE. I recommend that you keep the basic name of
-`login_<homework>.py` as given to you and only modify it when you are ready to
-submit. That way, you can import everything in your test file as just `from
-login_<homework> import *`.
+One thing to note: **the format used for your submission file is... not
+optimal.** Because it has a dot in it, it is impossible to import it like any
+other module in Python using the good old `from <module> import <stuff>`.
+Moreover, the dynamic import recommended on Nathalie Bouquet's website would
+make it impossible to use autocompletion in your IDE. I recommend that you keep
+the basic name of `login_<homework>.py` as given to you and only modify it when
+you are ready to submit. That way, you can import everything in your test file
+as just `from login_<homework> import *`.
 
 Another thing to remember is that **YOU MUST NEVER SUBMIT TESTS.** Keep your
 tests in a separate file!
@@ -49,11 +45,10 @@ tests in a separate file!
 It might sound dumb, but make sure you install Python! We will need to install a
 few things through `pip`, which is Python's package manager.
 
-SHARING UNIT TESTS WITH FELLOW STUDENTS MAY
-CONSIDERED TO BE CHEATING AND IS SEVERELY PUNISHED AT EPITA. DO NOT SHARE YOUR
-TESTS WITH YOUR FRIENDS, AS THAT COULD EARN YOU A MAGNIFISCENT CHEATING FLAG
-(the famous Flag Triche).
-{: .mdl-typography--font-bold .mdl-color-text--red-900}
+SHARING UNIT TESTS WITH FELLOW STUDENTS MAY BE CONSIDERED TO BE CHEATING AND IS
+SEVERELY PUNISHED AT EPITA. DO NOT SHARE YOUR TESTS WITH YOUR FRIENDS, AS THAT
+COULD EARN YOU A MAGNIFISCENT CHEATING FLAG (the famous Flag Triche). 
+{: .mdl-typography--font-bold .mdl-color-text--red-900 }
 
 #### PyCharm tips
 
@@ -70,6 +65,9 @@ can be done with anything.
 [^1]:
     One particularly convenient feature of the paid version of PyCharm is code
     coverage right inside the IDE, but you can use coverage tools without that.
+    Overall though, PyCharm is quite nice because it gives you a cozy 
+    environment where you don't have to worry *too* much about configuring your
+    stuff.
 
 Here is a tip that applies to both PyCharm and Rider (and also to any IDE from
 JetBrains): you can "search anything" by simply double pressing the shift key
@@ -80,7 +78,7 @@ IDEs very efficiently.
 
 When launching PyCharm, open it directly at the root directory of your homework
 (the one in which the `login_homework.py` file is), and point it to the
-interpreter you have on your system if it asks that question.
+interpreter you have on your system if it asks for it.
 
 If PyCharm complains with PEP8 warnings, know that this means that your code
 does not comply with the general Python coding style. Respecting the coding
@@ -88,7 +86,7 @@ style is essential for a language like Python which is based on indentation and
 not curly brackets. You can find out more about PEP8
 [here](https://www.python.org/dev/peps/pep-0008/).
 
-Two other essential keyboard shortcuts to know:
+Two other essential keyboard shortcuts to know when using the editor:
 
 * Alt+Enter: When you are on an error or a warning, opens a small popup where
   you can select what you want to do to fix the problem
@@ -102,18 +100,23 @@ know, a "unit test" is a small test that usually only tests a single function.
 
 * It makes sure that your code works, which is nice
 * It ensures that no regressions happen in your code. A regression is when
-  something that works now breaks (or has broken) inexplicably at some point in
-  the future. This is invaluable when you want to efficiently check when and if
-  your code breaks after you've made some optimizations.
+  something that worked is now broken. This is invaluable when you want to
+  efficiently check when and if your code breaks after you've made some
+  optimizations.
 * It gives you a direct approximation of how much has been done on your task.
   Writing your tests before writing your code can be an efficient way of making
-  reliable code.
+  reliable code. Writing tests before actually coding things can even be the way
+  you develop your entire project: this is known as TDD (Test-Driven 
+  Development)
 * Creating unit tests before even starting to code your function gives you a
-  better understanding of what said function is supposed to do.
+  better understanding of what said function is supposed to do. It basically
+  forces you to look at the example. Trust me, it is *very* easy to skip an
+  example when looking through the general specifications.
 * Click a button, test everything at once. It's that simple. Automate all the
   things!
-* If you have ever made something that looks like `def test_my_function()`,
-  congrats, you already know how to make unit tests!
+* Testing your code is not that different from printing out the results and 
+  checking them manually. Here, instead of printing the results, you directly
+  compare them with what you expected.
 
 ##### Side note: Making good unit tests
 
@@ -121,20 +124,16 @@ A unit test must be:
 
 * Small: a true unit test must only test one unit of code at most[^2]. A unit
   of code can be
-  * A specific use-case
-  * Corresponding to an if-branch (or any other specific case that you
-    treat differently)
+  * A specific use case
   * A specific edge-case that your code *should* handle.
 * Repeatable: it can be ran multiple times.
-* Stateless: it must be able to run no matter what the configurations are[^3]
-* File-less: using unit tests to check file-related manipulations is an
-  extremely bad idea.
-* Network-less: same as above but for network-related interactions
+* Stateless: it must be able to run no matter what the configurations and
+  environment are[^3]
 
 [^2]:
     This is the best case scenario: you can of course put multiple
-    test cases in the same unit test for peak SUP laziness. Don't worry,
-    I've been there too ;)
+    test cases (i.e. multiple `asserts`) in the same unit test for peak 
+    laziness. Don't worry, I've been there too ;)
 
 [^3]: 
     That's not what "stateless" *really* means but that's all you need to
@@ -143,7 +142,7 @@ A unit test must be:
 You must think of your unit-tests not as specific tests of what your code *does*
 but of what your code *should do*. Do note that there are also multiple valid
 return values for certain functions: you will have to have more complex
-assertions than just simple equality tests (`result == expectation`) in these
+assertions than just simple equality tests (`result == expected`) in these
 cases.
 
 [Inspired some of the points mentioned here.](https://www.artima.com/weblogs/viewpost.jsp?thread=126923)
@@ -157,7 +156,7 @@ to be used, which is perfect for us. `pytest` can also be extended with plugins,
 so, if something is missing in the basic `pytest`, a plugin probably exists.
 
 Another *massive* advantage of `pytest` is that it only uses thing you already
-know apart, except for the `assert` keyword which will be explained later on.
+know, except for the `assert` keyword which will be explained later on.
 
 ### Step 0: Installation
 
@@ -245,7 +244,7 @@ Say you have the following in your subject:
 
 ```python
 >>> my_amazing_function("Abcde", 123, BinTree("all your bintrees are belong to us", None, None))
-[("zoroark.guru", 50), ("is alright", 25)]
+[("kb.zoroark.guru", 50), ("is alright", 25)]
 ```
 
 We can directly re-use them as unit tests!
@@ -253,16 +252,17 @@ We can directly re-use them as unit tests!
 ```python
 def test_amazing_function():
   result = my_amazing_function("Abcde", 123, BinTree("all your bintrees are belong to us", None, None))
-  assert result == [("zoroark.guru", 50), ("is alright", 25)]
+  assert result == [("kb.zoroark.guru", 50), ("is alright", 25)]
 ```
 
 It is a good idea to separate the function call from the comparison to the
 expected result. This way, if your code fails miserably with an exception (that
 is, it actually fully crashes because of the function you're testing instead of
 just failing the assertion), you *know* that it is caused by the function and
-not weird `==` issues. This will also help you isolate cases where something was
-`None` somewhere. Failed on the `assert`? The result was `None`. Failed on the
-function call? Something went wrong inside your code.
+not weird `==` issues, because it will indicate the line with the call to
+`my_amazing_function`. This will also help you isolate cases where something was
+`None` somewhere. Failed on the `assert`? Might be a `None` problem. Failed on
+the function call? Something went wrong inside your code.
 
 ### Step 2: It's time to test!
 
@@ -274,6 +274,7 @@ PyCharm or not.
 You will only have to do step 2A.1 once to tell PyCharm how to test your code.
 
 ##### Step 2A.1: Creating a configuration
+
 Click the "Add Configuration" button in the top-right corner (or the existing
 configuration's name and then Edit Configurations). Click the + in the top left
 corner, pick "Python Tests" and then "pytest". Give it a nice name, and put the
@@ -295,7 +296,7 @@ will display what was printed during the test, and details about the error (if
 any). If the test passed successfully and nothing in particular was printed, you
 will only see a dot.
 
-Make sure that the "Show passed test" box is enabled (the tick on the top right
+Make sure that the "Show passed test" box is enabled (the tick on the top left
 of the results panel).
 
 What if one of our tests fails?
@@ -366,6 +367,7 @@ import cProfile
 
 You will get a very detailed output with the number of calls for every function
 used between the `enable` and `disable` calls, as well as the time spent in each
-function.
+function. This should be your starting point for optimizing both the number
+of function calls and the time spent in each function. Good luck!
 
 ### Footnotes
