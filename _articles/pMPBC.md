@@ -12,6 +12,7 @@ links:
     url: http://www.mehdioueslati.com/
     description:
       Powered by PHP
+retired: true
 ---
 
 This document is a list of programming advises and common knowledge. After

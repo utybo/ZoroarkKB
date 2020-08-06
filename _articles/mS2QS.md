@@ -27,6 +27,9 @@ license: © 2019 Matthieu Stombellini, tous droits réservés, all rights reserv
 # This is the short text that will appear on Google, Discord previews, etc ...
 # Not usually useful, uncomment if you want to use it.
 #excerpt: This is the excerpt
+# This is set to true if this article is "retired". Retired articles don't appear
+# in the article list but are still accessible via their URL.
+#retired: false
 ---
 
 <!-- Try to start at ### and not just #

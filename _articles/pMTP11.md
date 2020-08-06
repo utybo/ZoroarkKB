@@ -14,6 +14,7 @@ links:
     description:
       Powered by PHP
 license: Beerware (details in PDF)
+retired: true
 ---
 
 The purpose of this document is to help those in need of extra explanations
