@@ -139,11 +139,31 @@ cat.txt cathode.txt catty.txt
 
 In these examples, the shell "expands" the patterns. The command that is *actually* ran is respectively `echo bread.txt brett.txt` and `echo cat.txt cathode.txt catty.txt`.
 
+**BE CAREFUL! Because file expansions simply adds all the files one after the other in the command, if one of the files begins with a `-`, it may be understood as a flag and may have disastrous consequences!**
+
 #### Hidden files
 
 Hidden files and hidden directories on UNIX systems start with a dot `.`. You will need to enable a special flag in some commands to be able to see them (for example, you need to use `ls -A` or `ls -a` instead of `ls` to see hidden files).
 
 For example, a file is named `.gitignore` and a folder named `.config` are considered hidden directories because they start with a `.`.
+
+#### Permissions
+
+Linux and UNIX-like systems have a permissions system. A system has *users* and *user groups* (or just *groups* for short). Each user can be part of multiple groups.
+
+Each file and directory is owned by a user and a group, and has three "levels" of permissions:
+
+* The user owner's permissions (`u`)
+* The group owner's permissions (`g`)
+* Permissions for others (`o`)
+
+There are three kinds of permissions:
+
+* Read permissions `r`, needed to open and read files and directories
+* Write permissions `w`, needed to change and create files and directories
+* Execution permissions `x`, needed to run a program, file, etc.
+
+You can check the groups you are part of by using `groups username`, replacing `username` by your account's username.
 
 ### Commands and running stuff
 
@@ -232,7 +252,8 @@ The `ls` (for "**l**i**s**t") command displays every element contained in the cu
 The following flags can also be used:
 * `-a`, `--all` : display all elements, including hidden ones. 
 * `-A`: display all elements, including hidden ones, but exclude `.` and `..`
-* `-l` : display one element per line.
+* `-1`: display one element per line.
+* `-l`: display a more detailed list.
 
 You can also run `ls` on a specific folder by giving it a path to the folder. For example:
 
@@ -242,6 +263,31 @@ contents.txt of_some_directory.png
 ```
 
 This prints the contents of `~/example/some_directory`.
+
+Using the flag `l` will give you more details:
+
+```shell
+~/example$ ls -l
+total 184
+drwxr-xr-x 2 matthieu matthieu   4096 Aug 12 16:43 a_directory
+-rw-r--r-- 1 matthieu matthieu     85 Aug 12 16:44 contents.txt
+-rw-r--r-- 1 matthieu matthieu 176784 Aug 12 16:45 of_some_directory.png
+```
+
+The first `total` line represents the number of blocks this directory is taking on the storage device.
+
+The list contains the following information:
+
+* The file type as a single character. This will typically be `d` for a directory or `-` for a regular file.
+* The "mode bits" (that is, the permissions settings for this directory or file). This is a sequence of `rwx` (read, write, execution[^ls1]) repeated three times, first for the owning user, then the owning group, then for others. If the permission is *not* granted, a `-` is shown instead. See [here](#permissions) for explanations on permissions.
+* The number of hard links to the file or directory ([see here for details](https://unix.stackexchange.com/a/43047))
+* The name of the user owner
+* The name of the group owner
+* The size on disk of the file or directory (in bytes)
+* The last modification date
+* The name of the file or directory
+
+[^ls1]: This is not only an execution character and can instead be something else: the values "s", "S", "t", "T" are also possible under certain scenarios. Just know that if it is a lowercase character, it means `x` + something else. [See here for more information.](https://www.gnu.org/software/coreutils/manual/html_node/What-information-is-listed.html#index-permissions_002c-output-by-ls:~:text=The%20file%20mode%20bits%20listed%20are,each%20set%20of%20permissions%20as%20follows%3A)
 
 ### cd
 
@@ -266,6 +312,7 @@ It is also possible to run `cd` with absolute paths. For example:
 ~/example/some_directory$
 ```
 
+Finally, running the `cd` command with no argument is the same as running `cd ~`
 
 ### touch
 
@@ -363,24 +410,72 @@ The `cp` command (for **c**o**p**y) copies the content of the file given by the 
 
 ### chmod
 
-The chmod command (for **ch**ange **mod**e) modifies the permissions of the files given as arguments to the user or the group of user
+The `chmod` command (for **ch**ange **mod**e) modifies the permissions (or "mode") of the files given as arguments.
 
-There are 3 different modes:
-* r for read : the file can only be read.
-* w for write : the file can be modified.
-* x for execution : the file becomes an executable.
+Read [this part](#permissions) for details on permissions.
 
-File permissions on UNIX are a fairly big topic: for now, just know that if you want to execute a program or script you downloaded from the internet, you first need to grant yourself execution permissions. To do this, use the following command:
+The `chmod` command has multiple kinds of ways to determine the exact permissions that should be set.
+
+#### Script execution
+
+The number 1 reason to use `chmod` at EPITA is to make a script executable. On Linux and UNIX-like systems, you must have an execution permission to run a file (you will otherwise get a "Permission denied" message).
+
+The `chmod +x file.txt` command marks the file `file.txt` as executable.
 
 ```shell
+# Creates a file "my_script.sh" with "echo Success" in it
+~/example$ echo "echo Success" > my_script.sh
 ~/example$ ls
 my_script.sh
 ~/example$ ./my_script.sh
 bash: ./my_script.sh: Permission denied
 ~/example$ chmod +x my_script.sh
 ~/example$ ./my_script.sh
-Success!
+Success
 ```
+
+This is only an example of the "symbolic mode" syntax. Read on for more details.
+
+#### Symbolic mode
+
+This part will detail the syntax of the `chmod` command.
+
+The `chmod` command takes in first a "symbolic mode" (a human-friendly representation of the permissions) and the file(s) and directory(ies) the permissions should be applied to.
+
+The syntax of the symbolic mode is
+
+* a set of who the mode should be applied to (zero or more of `u` for the user owner, `g` for the group owner, `o` for all others, `a` for everyone). If none is specified, `a` is taken by default
+* `-` to remove the permissions, `+` to grant the permissions, `=` to set the permissions to exactly what is given
+* the kind of permissions, which is one or more of `r`, `w` or `x`[^chmod1] OR another target (`u`, `g`, `o`) to use their permissions.
+
+[^chmod1]: Other kinds of permissions are available, see [this](https://www.gnu.org/software/coreutils/manual/coreutils.html#Symbolic-Modes) for more details on symbolic modes.
+
+You can specify multiple symbolic modes by putting a `,` between them.
+
+For example `chmod u=rwx,go-w myfile.txt` sets the permissions for `myfile.txt` as follows:
+
+* Set `=` the user owner `u` permissions allowing them to read from `r`, write to `w` and execute `x` the file
+* Remove `-` the group owner `g` and others `o` permission to write to `w` the file.
+
+Another example: `chmod u+wx,g+w,o=r`
+
+* Add `+` the user owner `u` permissions allowing them to write to `w` and execute `x` the file
+* Add `+` the group owner `g` permissions allowing them to write to `w` the file
+* Set `=` others' `o` permissions allowing them to read from `r` the file
+
+Another one: `chmod g=u`
+
+* Set (`=`) the group owner (`g`) permissions to the permissions of the user owner (`u`)
+
+#### Octal mode
+
+The symbolic mode can also be expressed using a number in base 8. See [this](https://www.gnu.org/software/coreutils/manual/html_node/Numeric-Modes.html) for more details.
+
+For example, the number `777` is equivalent to `a=rwx`.
+
+#### Take the mode of another file/directory
+
+You can also take the permissions of another file and apply them to other files. Instead of the mode, use `--reference=reference_file.txt`, replacing `reference_file.txt` by a path to the reference file.
 
 ### locate
 
@@ -437,7 +532,7 @@ You can generally guess the compression algorithm by just looking at the file's 
 
 The `tar` command can both archive and compress files with a single command. It internally just calls the relevant compression program after the archival is done.
 
-#### Archiving + compressing
+#### Archiving and compressing
 
 You can archive files using the following command:
 
@@ -572,9 +667,20 @@ Your `top` output will usually be way longer than this: this one is fairly short
 
 The `sudo` command (for "**s**ubstitute **u**ser **do**") gives the command given as an argument the permission of the root user. Even if this command is disabled on the computers of the school, it is important to know it exists, especially for installing stuff on your own computer.
 
+**Anything you type after this command will be ran as an administrator (i.e. as the root account), and can have disastrous consequences if you do not know what you are doing. Use it with care and only when absolutely necessary!**
+
 ```shell
 ~/example$ pacman -S some_package
 error: you cannot perform this operation unless you are root 
 ~/example$ sudo pacman -S some_package
 # working fine
 ```
+
+## Going further
+
+The following resources can be useful if you want to learn more about shells:
+
+* [**Redirection**](https://linuxconfig.org/introduction-to-bash-shell-redirections): `|`, `>`, putting command outputs in files.
+* [**Scripting**](https://en.wikibooks.org/wiki/Bash_Shell_Scripting): Automate all the things and make mini-programs using shell commands.
+
+## Footnotes
